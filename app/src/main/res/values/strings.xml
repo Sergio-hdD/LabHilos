@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">LabHilos</string>
+    <string name="escuchando">Estoy escuchando</string>
+    <string name="descargando">Descargando…</string>
+    <string name="iniciarReproducion">Iniciar reproducion</string>
+    <string name="iniciarDescarga">Iniciar descarga</string>
 </resources>
