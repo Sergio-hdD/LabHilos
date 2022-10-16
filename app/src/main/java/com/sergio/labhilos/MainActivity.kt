@@ -4,6 +4,10 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import android.widget.TextView
+import androidx.lifecycle.lifecycleScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class MainActivity : AppCompatActivity() {
 
@@ -27,7 +31,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         btnDescargar.setOnClickListener {
-            simularDescarga(numeroDescarga)
+            simularDescargaCorrutina(numeroDescarga)
             numeroDescarga++
         }
 
@@ -49,6 +53,18 @@ class MainActivity : AppCompatActivity() {
             })
         })
         hilo.start() //Inicio el hilo
+    }
+
+    fun simularDescargaCorrutina(numeroDescarga: Int){
+        //Uso "lifecycleScope" para que la corrutina muera al morir el activity
+        lifecycleScope.launch{
+            tvDescargando.setText("Inicio de descarga de canción número $numeroDescarga") //Apenas inicie la corrutina comenzaría la descarga
+            withContext(Dispatchers.IO) {
+                Thread.sleep(5000) //que espere 5 segundos
+            }
+            tvDescargando.setText("Descarga de canción número $numeroDescarga finalizada")
+        }
+        //NOTA: Lo que hace la corrutina en realidad es acceder más fácilmente al hilo
     }
 
 }
